@@ -6,7 +6,7 @@ const path = require('path');
 let mainWindow = null;
 let tray = null;
 
-const iconPath = path.join(__dirname, 'statics', 'clock.png');
+const iconPath = path.join(__dirname, 'static', 'clock.png');
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin') {
     app.quit();
