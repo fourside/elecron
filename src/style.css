@@ -1,0 +1,22 @@
+#app {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.settings-input {
+  display: flex;
+}
+.settings-input label {
+  width: 15%;
+}
+.settings-input input {
+  flex: 1;
+}
+.settings-button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.settings-button button {
+  margin-left: 5px;
+}

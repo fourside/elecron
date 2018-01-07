@@ -5,11 +5,20 @@ const timer = remote.require('./renderer/lib/timer');
 const browser = remote.require('./renderer/lib/browser');
 const config = remote.require('./renderer/lib/config');
 
-const url = 'file://' + __dirname + '/index.html';
-timer.start(function() {
-  browser.start(url);
-});
+const vm = new Vue({
+  el: '#app',
+  data: {
+    settings: {},
+  },
+  methods: {
+  }
+})
 
 config.read(function(data) {
-  console.log(data);
+  const json = JSON.parse(data);
+  vm.settings = json.settings;
+  timer.start(function() {
+    browser.start(settings.url);
+  });
 });
+
