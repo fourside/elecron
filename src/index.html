@@ -12,34 +12,33 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
-              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              Settings
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            Settings
           </h3>
         </div>
         <div class="panel-body">
-            <form class="settings-form">
-              <div class="form-group settings-input">
-                <label for="cron" class="control-label">Cron</label>
-                <input type="text" class="form-control" id="cron" v-model="settings.cron">
-              </div>
-              <div class="form-group settings-input">
-                <label for="url" class="control-label">URL</label>
-                <input type="text" class="form-control" id="url" v-model="settings.url">
-              </div>
-              <div class="form-group settings-input">
-                <label for="browserPath" class="control-label">Browser Path</label>
-                <input type="text" class="form-control" id="browserPath" v-model="settings.browserPath">
-              </div>
-              <div class="form-group settings-button">
-                  <button type="button" class="btn btn-default">Reload</button>
-                  <button type="button" class="btn btn-default">Save</button>
-              </div>
-            </form>
-
+          <form class="settings-form">
+            <div class="form-group settings-input">
+              <label for="cron" class="control-label">Cron</label>
+              <input type="text" class="form-control" id="cron" v-model="settings.cron">
+            </div>
+            <div class="form-group settings-input">
+              <label for="url" class="control-label">URL</label>
+              <input type="text" class="form-control" id="url" v-model="settings.url">
+            </div>
+            <div class="form-group settings-input">
+              <label for="browserPath" class="control-label">Browser Path</label>
+              <input type="text" class="form-control" id="browserPath" v-model="settings.browserPath">
+            </div>
+            <div class="form-group settings-button">
+                <button type="button" class="btn btn-default" v-on:click="reload">Reload</button>
+                <button type="button" class="btn btn-default" v-on:click="save">Save</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+    <script src="vue.js"></script>
+    <script src="renderer/boot.js"></script>
   </body>
-  <script src="vue.js"></script>
-  <script src="renderer/boot.js"></script>
 </html>
