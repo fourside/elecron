@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/fourside/elecron#readme",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "cron": "^1.3.0",
-    "electron": "^1.7.10"
+    "electron": "^1.7.10",
+    "vue": "^2.5.13"
   }
 }
