@@ -10,7 +10,10 @@ const config = {
       cb(data);
     });
   },
-  write: function() {
+  write: function(json) {
+    fs.writeFile(configPath, JSON.stringify(json, null, '  '), (err) => {
+      if (err) throw err;
+    });
   },
 }
 
