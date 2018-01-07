@@ -10,15 +10,38 @@ const vm = new Vue({
   data: {
     settings: {},
   },
+  created: function() {
+    this.read();
+    this.run();
+  },
   methods: {
+    read: function() {
+      config.read(function(data) {
+        const json = JSON.parse(data);
+        vm.settings = json.settings;
+      });
+    },
+    save: function() {
+      const json = {
+        settings: this.settings
+      }
+      config.write(json);
+    },
+    run: function() {
+      timer.start(function() {
+        browser.start(this.settings.url);
+      });
+    },
+    stop: function() {
+      timer.stop();
+    },
+    reload: function() {
+      this.read();
+      this.stop();
+      this.run();
+    }
   }
-})
-
-config.read(function(data) {
-  const json = JSON.parse(data);
-  vm.settings = json.settings;
-  timer.start(function() {
-    browser.start(settings.url);
-  });
 });
+
+
 
