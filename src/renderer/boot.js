@@ -13,7 +13,7 @@ const vm = new Vue({
     settings: {},
   },
   created: function() {
-    this.read().then(this.run);
+    this.read().then(this.cronRun);
   },
   methods: {
     read: function() {
@@ -28,18 +28,20 @@ const vm = new Vue({
         settings: this.settings
       }
       config.write(json);
-      this.run();
+      this.cronRun();
     },
     run: function() {
+      browser.start(vm.settings.browserPath, vm.settings.url);
+    },
+    cronRun: function() {
       timer.start(this.settings.cron, function() {
-        browser.start(vm.settings.browserPath, vm.settings.url);
+        vm.run();
       });
     },
     reload: function() {
       timer.stop();
-      this.read(this.run);
+      this.read(this.cronRun);
     }
   }
 });
-
 
