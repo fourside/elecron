@@ -1,9 +1,11 @@
 'use strict';
 
+const path = require('path');
 const { remote } = require('electron');
-const timer = remote.require('./renderer/lib/timer');
-const browser = remote.require('./renderer/lib/browser');
-const config = remote.require('./renderer/lib/config');
+
+const timer = remote.require(path.join(__dirname, '/renderer/lib/timer'));
+const browser = remote.require(path.join(__dirname, '/renderer/lib/browser'));
+const config = remote.require(path.join(__dirname, '/renderer/lib/config'));
 
 const vm = new Vue({
   el: '#app',
@@ -21,25 +23,23 @@ const vm = new Vue({
       });
     },
     save: function() {
+      timer.stop();
       const json = {
         settings: this.settings
       }
       config.write(json);
+      this.run();
     },
     run: function() {
       timer.start(this.settings.cron, function() {
-        browser.start(this.settings.browserPath, this.settings.url);
+        browser.start(vm.settings.browserPath, vm.settings.url);
       });
     },
-    stop: function() {
-      timer.stop();
-    },
     reload: function() {
-      this.stop();
+      timer.stop();
       this.read(this.run);
     }
   }
 });
-
 
 

@@ -2,9 +2,10 @@
   "name": "elecron",
   "version": "0.1.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "app.js",
   "scripts": {
     "start": "./node_modules/.bin/electron .",
+    "build:win": "./node_modules/.bin/electron-packager . elecron --out=release --platform=win32 --arch=x64 --electronVersion=1.7.10 --overwrite=true --icon=./src/static/clock.ico",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,10 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "cron": "^1.3.0",
-    "electron": "^1.7.10"
+    "electron-debug": "^1.5.0"
+  },
+  "devDependencies": {
+    "electron": "^1.7.10",
+    "electron-packager": "^10.1.1"
   }
 }
