@@ -43,7 +43,19 @@ const vm = new Vue({
     reload: function() {
       timer.stop();
       this.read(this.cronRun);
+      this.$validator.reset();
     }
+  },
+  computed: {
+    savable: function() {
+      return this.errors.all().length === 0;
+    },
+    runnable: function() {
+      const hasError = this.errors.items.some(function(err) {
+        return err.field === 'url' || err.field === 'browserPath';
+      });
+      return !hasError;
+    },
   }
 });
 
