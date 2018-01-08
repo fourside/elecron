@@ -2,9 +2,13 @@
 
 const exec = require('child_process').exec;
 const browser = {
-  start: function(url) {
-    // TODO
-    exec("start microsoft-edge:" + url);
+  start: function(executable, url) {
+    exec(executable + " " + url, function(err, stdout, stderr) {
+      if (err) {
+        console.log(stderr);
+        throw err;
+      }
+    });
   },
 }
 

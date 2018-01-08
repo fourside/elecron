@@ -3,9 +3,9 @@
 const CronJob = require('cron').CronJob;
 const timer = {
   job : null,
-  start: function(cb) {
+  start: function(cronTime, cb) {
     this.job = new CronJob({
-      cronTime: '0 0 9 * * 1-5',
+      cronTime: cronTime,
       onTick: cb,
       start: true,
       timeZone: 'Asia/Tokyo'

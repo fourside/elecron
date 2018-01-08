@@ -6,8 +6,11 @@ const path = require('path');
 const configPath = path.join(__dirname, '..', '..', 'elecron.config.js');
 const config = {
   read: function(cb) {
-    fs.readFile(configPath, 'utf-8', (err, data) => {
-      cb(data);
+    return new Promise(function(resolve, reject) {
+      fs.readFile(configPath, 'utf-8', (err, data) => {
+        if (err) throw err;
+        resolve(cb(data));
+      });
     });
   },
   write: function(json) {

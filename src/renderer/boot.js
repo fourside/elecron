@@ -11,12 +11,11 @@ const vm = new Vue({
     settings: {},
   },
   created: function() {
-    this.read();
-    this.run();
+    this.read().then(this.run);
   },
   methods: {
     read: function() {
-      config.read(function(data) {
+      return config.read(function(data) {
         const json = JSON.parse(data);
         vm.settings = json.settings;
       });
@@ -28,17 +27,16 @@ const vm = new Vue({
       config.write(json);
     },
     run: function() {
-      timer.start(function() {
-        browser.start(this.settings.url);
+      timer.start(this.settings.cron, function() {
+        browser.start(this.settings.browserPath, this.settings.url);
       });
     },
     stop: function() {
       timer.stop();
     },
     reload: function() {
-      this.read();
       this.stop();
-      this.run();
+      this.read(this.run);
     }
   }
 });
