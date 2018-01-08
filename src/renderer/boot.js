@@ -47,3 +47,12 @@ const vm = new Vue({
   }
 });
 
+const cronValidator = {
+  getMessage(field, args) {
+    return "value is not a valid format.";
+  },
+  validate(value) {
+    return timer.isValid(value);
+  }
+};
+VeeValidate.Validator.extend('cron', cronValidator);

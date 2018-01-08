@@ -15,6 +15,15 @@ const timer = {
     if (this.job) {
       this.job.stop();
     }
+  },
+  isValid: function(cronTime) {
+    try {
+      const j = new CronJob(cronTime);
+      j.stop();
+      return true;
+    } catch(ignore) {
+      return false;
+    }
   }
 }
 

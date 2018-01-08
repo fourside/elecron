@@ -21,7 +21,7 @@
             <div class="form-group settings-input">
               <label for="cron" class="control-label">Cron</label>
               <div>
-                <input type="text" class="form-control" id="cron" name="cron" v-model="settings.cron" v-validate="'required'" :class="{'has-error': errors.has('cron') }">
+                <input type="text" class="form-control" id="cron" name="cron" v-model="settings.cron" v-validate="'required|cron'" :class="{'has-error': errors.has('cron') }">
                 <p v-show="errors.has('cron')" class="help has-error">{{ errors.first('cron') }}</p>
               </div>
             </div>
