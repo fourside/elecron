@@ -7,6 +7,8 @@ const timer = remote.require(path.join(__dirname, '/renderer/lib/timer'));
 const browser = remote.require(path.join(__dirname, '/renderer/lib/browser'));
 const config = remote.require(path.join(__dirname, '/renderer/lib/config'));
 
+Vue.use(VeeValidate);
+
 const vm = new Vue({
   el: '#app',
   data: {

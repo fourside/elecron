@@ -10,8 +10,12 @@
 .settings-input label {
   width: 15%;
 }
-.settings-input input {
+.settings-input div {
   flex: 1;
+}
+.settings-input input.has-error {
+  flex: 1;
+  border: 1px solid #ff3860;
 }
 .settings-button {
   display: flex;
@@ -20,3 +24,10 @@
 .settings-button button {
   margin-left: 5px;
 }
+.help {
+  margin: 0;
+}
+.has-error {
+  color: #ff3860;
+}
+

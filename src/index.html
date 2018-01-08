@@ -17,18 +17,27 @@
           </h3>
         </div>
         <div class="panel-body">
-          <form class="settings-form">
+          <form class="settings-form" @submit.prevent="">
             <div class="form-group settings-input">
               <label for="cron" class="control-label">Cron</label>
-              <input type="text" class="form-control" id="cron" v-model="settings.cron">
+              <div>
+                <input type="text" class="form-control" id="cron" name="cron" v-model="settings.cron" v-validate="'required'" :class="{'has-error': errors.has('cron') }">
+                <p v-show="errors.has('cron')" class="help has-error">{{ errors.first('cron') }}</p>
+              </div>
             </div>
             <div class="form-group settings-input">
               <label for="url" class="control-label">URL</label>
-              <input type="text" class="form-control" id="url" v-model="settings.url">
+              <div>
+                <input type="text" class="form-control" id="url" name="url" v-model="settings.url" v-validate="'required'" :class="{'has-error': errors.has('url') }">
+                <p v-show="errors.has('url')" class="help has-error">{{ errors.first('url') }}</p>
+              </div>
             </div>
             <div class="form-group settings-input">
               <label for="browserPath" class="control-label">Browser Path</label>
-              <input type="text" class="form-control" id="browserPath" v-model="settings.browserPath">
+              <div>
+                <input type="text" class="form-control" id="browserPath" name="browserPath" v-model="settings.browserPath" v-validate="'required'" :class="{'has-error': errors.has('browserPath') }">
+                <p v-show="errors.has('browserPath')" class="help has-error">{{ errors.first('browserPath') }}</p>
+              </div>
             </div>
             <div class="form-group settings-button">
                 <button type="button" class="btn btn-default" v-on:click="reload">Reload</button>
@@ -40,6 +49,7 @@
       </div>
     </div>
     <script src="../node_modules/vue/dist/vue.min.js"></script>
+    <script src="../node_modules/vee-validate/dist/vee-validate.min.js"></script>
     <script src="renderer/boot.js"></script>
   </body>
 </html>
