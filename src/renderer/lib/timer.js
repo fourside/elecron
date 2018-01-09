@@ -2,19 +2,21 @@
 
 const CronJob = require('cron').CronJob;
 const timer = {
-  job : null,
+  jobs : [],
   start: function(cronTime, cb) {
-    this.job = new CronJob({
+    const job = new CronJob({
       cronTime: cronTime,
       onTick: cb,
       start: true,
       timeZone: 'Asia/Tokyo'
     });
+    this.jobs.push(job);
   },
   stop: function() {
-    if (this.job) {
-      this.job.stop();
-    }
+    this.jobs.forEach(function(job) {
+      job.stop();
+    });
+    this.jobs = [];
   },
   isValid: function(cronTime) {
     try {

@@ -18,13 +18,15 @@
         </div>
         <div class="panel-body">
           <form class="settings-form" @submit.prevent="">
-            <div class="form-group settings-input">
-              <label for="cron" class="control-label">Cron</label>
+
+            <div class="form-group settings-input" v-for="(cron, i) in settings.cron">
+                <label :for="'cron'+i" class="control-label">Cron {{ i }}</label>
               <div>
-                <input type="text" class="form-control" id="cron" name="cron" v-model="settings.cron" v-validate="'required|cron'" :class="{'has-error': errors.has('cron') }">
-                <p v-show="errors.has('cron')" class="help has-error">{{ errors.first('cron') }}</p>
+                  <input type="text" class="form-control" :id="'cron'+i" :name="'cron'+i" v-model="settings.cron[i]" v-validate="'required|cron'" :class="{'has-error': errors.has(`cron${i}`) }">
+                  <p v-show="errors.has('cron'+i)" class="help has-error">{{ errors.first('cron'+i) }}</p>
               </div>
             </div>
+
             <div class="form-group settings-input">
               <label for="url" class="control-label">URL</label>
               <div>
@@ -32,6 +34,7 @@
                 <p v-show="errors.has('url')" class="help has-error">{{ errors.first('url') }}</p>
               </div>
             </div>
+
             <div class="form-group settings-input">
               <label for="browserPath" class="control-label">Browser Path</label>
               <div>
@@ -48,7 +51,7 @@
         </div>
       </div>
     </div>
-    <script src="../node_modules/vue/dist/vue.min.js"></script>
+    <script src="../node_modules/vue/dist/vue.js"></script>
     <script src="../node_modules/vee-validate/dist/vee-validate.min.js"></script>
     <script src="renderer/boot.js"></script>
   </body>

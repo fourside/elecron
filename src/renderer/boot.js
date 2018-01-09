@@ -36,9 +36,11 @@ const vm = new Vue({
       browser.start(vm.settings.browserPath, vm.settings.url);
     },
     cronRun: function() {
-      timer.start(this.settings.cron, function() {
-        vm.run();
-      });
+      this.settings.cron.forEach(function(cron) {
+        timer.start(cron, function() {
+          vm.run();
+        });
+      })
     },
     reload: function() {
       timer.stop();

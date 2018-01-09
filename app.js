@@ -32,7 +32,7 @@ const createTray = () => {
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 600,
-    height: 410,
+    height: 460,
     fullscreenable: false,
     //resizable: false,
     icon: iconPath,
