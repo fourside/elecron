@@ -2,6 +2,7 @@
 
 require('electron-debug')({enabled: true});
 const { app, Menu, Tray, BrowserWindow } = require('electron');
+const aboutWindow = require('about-window').default;
 const path = require('path');
 
 let mainWindow = null;
@@ -15,6 +16,7 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
+  createMenu();
   createTray();
   createWindow();
 });
@@ -51,4 +53,16 @@ const createWindow = () => {
 
 const toggleWindow = () => {
   mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-}
+};
+
+const createMenu = () => {
+  const menu = Menu.buildFromTemplate([
+    {
+      label: "about",
+      click: () => aboutWindow({
+        icon_path: iconPath
+      })
+    }
+  ]);
+  Menu.setApplicationMenu(menu);
+};
