@@ -56,11 +56,14 @@ const toggleWindow = () => {
 };
 
 const createMenu = () => {
+  const iconPath = path.join(__dirname, 'src', 'static', 'clock-250.png');
   const menu = Menu.buildFromTemplate([
     {
       label: "about",
       click: () => aboutWindow({
-        icon_path: iconPath
+        icon_path: iconPath,
+        description: "scheduled web browsing",
+        bug_report_url: "https://github.com/fourside/elecron/issues"
       })
     }
   ]);
