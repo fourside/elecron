@@ -20,9 +20,15 @@
 .settings-button {
   display: flex;
   flex-direction: row-reverse;
+  margin-bottom: 0;
 }
 .settings-button button {
   margin-left: 5px;
+}
+.interaction p {
+  text-align: right;
+  margin-bottom: 0;
+  min-height: 24px;
 }
 .help {
   margin: 0;
@@ -31,3 +37,9 @@
   color: #ff3860;
 }
 
+.fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-leave-to {
+  opacity: 0;
+}

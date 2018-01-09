@@ -47,6 +47,13 @@
                 <button type="button" class="btn btn-default" v-on:click="save" :disabled="! savable">Save</button>
                 <button type="button" class="btn btn-default" v-on:click="run" :disabled="! runnable">Run</button>
             </div>
+            <div class="interaction">
+              <transition name="fade">
+                <p>
+                  <span v-if="interaction">{{ interaction }}</span>
+                </p>
+              </transition>
+            </div>
           </form>
         </div>
       </div>

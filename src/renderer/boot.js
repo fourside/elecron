@@ -13,6 +13,7 @@ const vm = new Vue({
   el: '#app',
   data: {
     settings: {},
+    interaction: ""
   },
   created: function() {
     this.read().then(this.cronRun);
@@ -31,6 +32,7 @@ const vm = new Vue({
       }
       config.write(json);
       this.cronRun();
+      this.setInteraction("Saved!");
     },
     run: function() {
       browser.start(vm.settings.browserPath, vm.settings.url);
@@ -46,6 +48,13 @@ const vm = new Vue({
       timer.stop();
       this.read(this.cronRun);
       this.$validator.reset();
+      this.setInteraction("Reload!");
+    },
+    setInteraction: function(message) {
+      this.interaction = message;
+      setTimeout(function() {
+        vm.interaction = "";
+      }, 2000);
     }
   },
   computed: {
