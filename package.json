@@ -1,7 +1,7 @@
 {
   "name": "elecron",
   "version": "0.1.0",
-  "description": "",
+  "description": "scheduled web browsing",
   "main": "app.js",
   "scripts": {
     "start": "./node_modules/.bin/electron .",
