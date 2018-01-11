@@ -1,0 +1,29 @@
+skip_non_tags: true
+build:
+  verbosity: minimal
+
+platform:
+  - x64
+
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+
+install:
+  - ps: Install-Product node 8 x64
+  - npm install
+
+build_script:
+  - npm run build:win
+  - 7z a elecron-win32-x64.zip %APPVEYOR_BUILD_FOLDER%\release\elecron-win32-x64
+
+test: off
+
+deploy:
+  release: v$(appveyor_build_version)
+  description: 'Release description'
+  artifact: elecron-win32-x64.zip
+  provider: GitHub
+  auth_token:
+    secure: MHFFc5H6WcQ9vaR6Gm6SY9SBqHyqi5shHqK4xXk7VpqpZx9fxM9V4HYSY+TWuJeS
