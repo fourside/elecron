@@ -15,6 +15,19 @@ app.on('window-all-closed', function() {
   }
 });
 
+const shouldQuit = app.makeSingleInstance((argv, workingDirectory) => {
+  showWindow()
+})
+if (shouldQuit) app.quit()
+
+const showWindow = () => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+  } else {
+    createWindow()
+  }
+}
 app.on('ready', function() {
   createMenu();
   createTray();
