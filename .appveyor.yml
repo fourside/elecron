@@ -1,3 +1,4 @@
+skip_tags: false
 skip_non_tags: true
 build:
   verbosity: minimal
@@ -20,10 +21,16 @@ build_script:
 
 test: off
 
+artifacts:
+  - path: ${APPVEYOR_BUILD_FOLDER}\release\elecron-win32-x64.zip
+    name: zipped
+
 deploy:
-  release: v$(appveyor_build_version)
-  description: 'Release description'
-  artifact: elecron-win32-x64.zip
   provider: GitHub
+  description: 'Release description'
+  tag: ${APPVEYOR_REPO_TAG_NAME}
+  artifact: zipped
+  on:
+      branch: master
   auth_token:
     secure: MHFFc5H6WcQ9vaR6Gm6SY9SBqHyqi5shHqK4xXk7VpqpZx9fxM9V4HYSY+TWuJeS
