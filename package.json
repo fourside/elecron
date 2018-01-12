@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "./node_modules/.bin/electron .",
+    "prebuild": "./node_modules/.bin/webpack .",
     "build:win": "./node_modules/.bin/electron-packager . elecron --out=release --platform=win32 --arch=x64 --electronVersion=1.7.10 --overwrite=true --icon=./src/static/clock.ico",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "electron": "^1.7.10",
-    "electron-packager": "^10.1.1"
+    "electron-packager": "^10.1.1",
+    "webpack": "^3.10.0"
   }
 }
