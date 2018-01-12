@@ -22,7 +22,7 @@ build_script:
 test: off
 
 artifacts:
-  - path: release\elecron-win32-x64.zip
+  - path: elecron-win32-x64.zip
     name: zipped
 
 deploy:
