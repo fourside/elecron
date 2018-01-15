@@ -134,6 +134,8 @@ export default {
 }
 .settings-input label {
   width: 15%;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .settings-input div {
   flex: 1;

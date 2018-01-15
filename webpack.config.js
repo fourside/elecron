@@ -7,7 +7,8 @@ module.exports = {
   entry: {
     main: './src/renderer/boot.js',
     vendor: [
-      'vue'
+      'vue',
+      'vee-validate',
     ]
   },
   devtool: 'inline-source-map',
@@ -18,6 +19,14 @@ module.exports = {
         test: /\.vue$/,
         use: 'vue-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        use: 'file-loader'
       }
     ]
   },
@@ -27,6 +36,11 @@ module.exports = {
       template: './src/index.html'
     }),
     new webpack.HashedModuleIdsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
