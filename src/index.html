@@ -4,62 +4,8 @@
     <meta charset="utf-8">
     <title>Elecron</title>
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div id="app">
-      <h1>Elecron</h1>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            Settings
-          </h3>
-        </div>
-        <div class="panel-body">
-          <form class="settings-form" @submit.prevent="">
-
-            <div class="form-group settings-input" v-for="(cron, i) in settings.cron">
-                <label :for="'cron'+i" class="control-label">Cron {{ i }}</label>
-              <div>
-                  <input type="text" class="form-control" :id="'cron'+i" :name="'cron'+i" v-model="settings.cron[i]" v-validate="'required|cron'" :class="{'has-error': errors.has(`cron${i}`) }">
-                  <p v-show="errors.has('cron'+i)" class="help has-error">{{ errors.first('cron'+i) }}</p>
-              </div>
-            </div>
-
-            <div class="form-group settings-input">
-              <label for="url" class="control-label">URL</label>
-              <div>
-                <input type="text" class="form-control" id="url" name="url" v-model="settings.url" v-validate="'required'" :class="{'has-error': errors.has('url') }">
-                <p v-show="errors.has('url')" class="help has-error">{{ errors.first('url') }}</p>
-              </div>
-            </div>
-
-            <div class="form-group settings-input">
-              <label for="browserPath" class="control-label">Browser Path</label>
-              <div>
-                <input type="text" class="form-control" id="browserPath" name="browserPath" v-model="settings.browserPath" v-validate="'required'" :class="{'has-error': errors.has('browserPath') }">
-                <p v-show="errors.has('browserPath')" class="help has-error">{{ errors.first('browserPath') }}</p>
-              </div>
-            </div>
-            <div class="form-group settings-button">
-                <button type="button" class="btn btn-default" v-on:click="reload">Reload</button>
-                <button type="button" class="btn btn-default" v-on:click="save" :disabled="! savable">Save</button>
-                <button type="button" class="btn btn-default" v-on:click="run" :disabled="! runnable">Run</button>
-            </div>
-            <div class="interaction">
-              <transition name="fade">
-                <p>
-                  <span v-if="interaction">{{ interaction }}</span>
-                </p>
-              </transition>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <script src="../node_modules/vue/dist/vue.js"></script>
-    <script src="../node_modules/vee-validate/dist/vee-validate.min.js"></script>
-    <script src="renderer/boot.js"></script>
+    <div id="app"></div>
   </body>
 </html>
