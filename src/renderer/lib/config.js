@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const configPath = path.join(__dirname, '..', '..', 'elecron.config.js');
+const configPath = path.join('elecron.config.js');
 const config = {
   read: function(cb) {
     return new Promise(function(resolve, reject) {

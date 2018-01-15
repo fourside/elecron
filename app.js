@@ -53,7 +53,7 @@ const createWindow = () => {
     icon: iconPath,
     autoHideMenuBar: true,
   });
-  mainWindow.loadURL('file://' + __dirname + '/src/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
 
   mainWindow.on('minimize', function(event) {
     mainWindow.hide();

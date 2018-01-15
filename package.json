@@ -4,8 +4,12 @@
   "description": "scheduled web browsing",
   "main": "app.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron .",
-    "build:win": "./node_modules/.bin/electron-packager . elecron --out=release --platform=win32 --arch=x64 --electronVersion=1.7.10 --overwrite=true --icon=./src/static/clock.ico",
+    "start": "npx electron .",
+    "dev-server": "npx webpack-dev-server --open",
+    "prebuild": "npx webpack",
+    "dev": "npm run prebuild && npm start",
+    "build:win": "npm run prebuild && npx electron-packager . elecron --out=release --platform=win32 --arch=x64 --electronVersion=1.7.10 --overwrite=true --asar --icon=./src/static/clock.ico && npm run conf-copy",
+    "conf-copy": "copy elecron.config.js release\\elecron-win32-x64",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +32,16 @@
     "vue": "^2.5.13"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.8",
     "electron": "^1.7.10",
-    "electron-packager": "^10.1.1"
+    "electron-packager": "^10.1.1",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.19.1",
+    "vue-loader": "^13.7.0",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.10.1"
   }
 }
