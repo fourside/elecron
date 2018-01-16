@@ -66,15 +66,15 @@ export default {
       interaction: ""
     }
   },
-  created: function() {
-    this.read().then(this.cronRun);
+  created: async function() {
+    await this.read();
+    this.cronRun();
   },
   methods: {
-    read: function() {
-      return config.read(data => {
-        const json = JSON.parse(data);
-        this.settings = json.settings;
-      });
+    read: async function() {
+      const data = await config.read();
+      const json = JSON.parse(data);
+      this.settings = json.settings;
     },
     save: function() {
       timer.stop();
@@ -95,9 +95,10 @@ export default {
         });
       })
     },
-    reload: function() {
+    reload: async function() {
       timer.stop();
-      this.read().then(this.cronRun);
+      await this.read();
+      this.cronRun();
       this.$validator.reset();
       this.setInteraction("Reload!");
     },
