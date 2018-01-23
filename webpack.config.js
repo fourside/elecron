@@ -5,20 +5,33 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/renderer/boot.js',
+    main: './src/renderer/boot.ts',
     vendor: [
       'vue',
       'vee-validate',
     ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
   },
   devtool: 'inline-source-map',
   target: 'electron-renderer',
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        exclude: /node_modules|vue\/src/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
+      {
         test: /\.vue$/,
-        use: 'vue-loader',
-        exclude: /node_modules/
+        loader: 'vue-loader',
+        options: {
+          esModule: true
+        }
       },
       {
         test: /\.css$/,
