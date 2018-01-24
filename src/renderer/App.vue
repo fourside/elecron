@@ -11,10 +11,10 @@
     <div class="panel-body">
       <form class="settings-form" @submit.prevent="">
 
-        <div class="form-group settings-input" v-for="(cron, i) in settings.cron">
+        <div class="form-group settings-input" v-for="(cron, i) in conf.settings.cron">
             <label :for="'cron'+i" class="control-label">Cron {{ i }}</label>
           <div>
-              <input type="text" class="form-control" :id="'cron'+i" :name="'cron'+i" v-model="settings.cron[i]" v-validate="'required|cron'" :class="{'has-error': errors.has(`cron${i}`) }">
+              <input type="text" class="form-control" :id="'cron'+i" :name="'cron'+i" v-model="conf.settings.cron[i]" v-validate="'required|cron'" :class="{'has-error': errors.has(`cron${i}`) }">
               <p v-show="errors.has('cron'+i)" class="help has-error">{{ errors.first('cron'+i) }}</p>
           </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="form-group settings-input">
           <label for="url" class="control-label">URL</label>
           <div>
-            <input type="text" class="form-control" id="url" name="url" v-model="settings.url" v-validate="'required'" :class="{'has-error': errors.has('url') }">
+            <input type="text" class="form-control" id="url" name="url" v-model="conf.settings.url" v-validate="'required'" :class="{'has-error': errors.has('url') }">
             <p v-show="errors.has('url')" class="help has-error">{{ errors.first('url') }}</p>
           </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="form-group settings-input">
           <label for="browserPath" class="control-label">Browser Path</label>
           <div>
-            <input type="text" class="form-control" id="browserPath" name="browserPath" v-model="settings.browserPath" v-validate="'required'" :class="{'has-error': errors.has('browserPath') }">
+            <input type="text" class="form-control" id="browserPath" name="browserPath" v-model="conf.settings.browserPath" v-validate="'required'" :class="{'has-error': errors.has('browserPath') }">
             <p v-show="errors.has('browserPath')" class="help has-error">{{ errors.first('browserPath') }}</p>
           </div>
         </div>
@@ -52,57 +52,61 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 
-const { remote } = require('electron');
-const timer =   remote.require('./src/renderer/lib/timer');
-const browser = remote.require('./src/renderer/lib/browser');
-const config =  remote.require('./src/renderer/lib/config');
+import Vue from 'vue';
+import { ErrorBag, ErrorField } from 'vee-validate';
 
-export default {
-  data: function() {
+import timer from  './lib/timer';
+import browser from  './lib/browser';
+import config from  './lib/config';
+import Settings from './lib/settings';
+
+interface Data {
+    conf: Settings;
+    interaction :string;
+    errors: ErrorBag;
+}
+export default Vue.extend({
+  data: function() :Data {
     return {
-      settings: {},
+      conf: {},
       interaction: ""
-    }
+    } as Data;
   },
-  created: async function() {
-    await this.read();
+  created: function() {
+    this.read();
     this.cronRun();
   },
   methods: {
-    read: async function() {
-      const data = await config.read();
-      const json = JSON.parse(data);
-      this.settings = json.settings;
+    read: function() {
+      const conf = config.read();
+      this.conf = JSON.parse(conf) as Settings;
     },
     save: function() {
       timer.stop();
-      const json = {
-        settings: this.settings
-      }
-      config.write(json);
+      config.write(this.conf);
       this.cronRun();
       this.setInteraction("Saved!");
     },
     run: function() {
-      browser.start(this.settings.browserPath, this.settings.url);
+      browser.start(this.conf.settings.browserPath, this.conf.settings.url);
     },
     cronRun: function() {
-      this.settings.cron.forEach((cron) => {
+      this.conf.settings.cron.forEach((cron :string) => {
         timer.start(cron, () => {
           this.run();
         });
       })
     },
-    reload: async function() {
+    reload: function() {
       timer.stop();
-      await this.read();
+      this.read();
       this.cronRun();
       this.$validator.reset();
       this.setInteraction("Reload!");
     },
-    setInteraction: function(message) {
+    setInteraction: function(message :string) {
       this.interaction = message;
       setTimeout(() => {
         this.interaction = "";
@@ -110,17 +114,17 @@ export default {
     }
   },
   computed: {
-    savable: function() {
+    savable: function() :boolean {
       return this.errors.all().length === 0;
     },
-    runnable: function() {
-      const hasError = this.errors.items.some(function(err) {
+    runnable: function() :boolean {
+      const hasError = this.errors.items.some(function(err :ErrorField) {
         return err.field === 'url' || err.field === 'browserPath';
       });
       return !hasError;
     },
   }
-}
+});
 </script>
 
 <style>
