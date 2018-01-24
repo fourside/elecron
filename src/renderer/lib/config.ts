@@ -2,22 +2,22 @@
 
 const fs = require('fs');
 const path = require('path');
+import Settings from './settings';
 
 const configPath = path.join('elecron.config.js');
 const config = {
-  read: function() {
-    return new Promise(function(resolve, reject) {
-      fs.readFile(configPath, 'utf-8', (err, data) => {
-        if (err) throw err;
-        resolve(data);
-      });
-    });
+  read: function() :string {
+    return fs.readFileSync(configPath, 'utf-8');
   },
-  write: function(json) {
-    fs.writeFile(configPath, JSON.stringify(json, null, '  '), (err) => {
+  write: function(json :Settings) {
+    fs.writeFile(configPath, JSON.stringify(json, null, '  '), (err :any) => {
       if (err) throw err;
     });
   },
-}
+} as Config;
 
-module.exports = config;
+interface Config {
+  read() :string;
+  write(settings :Settings) :void;
+}
+export default config;
