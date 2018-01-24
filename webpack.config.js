@@ -9,6 +9,9 @@ module.exports = {
     vendor: [
       'vue',
       'vee-validate',
+      'electron',
+      'cron',
+      'bootstrap',
     ]
   },
   resolve: {
