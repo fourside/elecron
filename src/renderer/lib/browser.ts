@@ -2,9 +2,9 @@
 
 const exec = require('child_process').exec;
 const browser = {
-  start: function(executable, url) {
+  start: function(executable :string, url :string) {
     let exe = process.platform === 'win32' ? "\"" + executable + "\"" : executable;
-    exec(exe + " " + url, function(err, stdout, stderr) {
+    exec(exe + " " + url, function(err :any, stdout :string, stderr :string) {
       if (err) {
         console.log(err);
         console.log(stderr);
@@ -12,6 +12,10 @@ const browser = {
       }
     });
   },
+} as Browser;
+
+interface Browser {
+  start(executable :string, url :string) :void
 }
 
-module.exports = browser;
+export default browser;
